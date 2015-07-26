@@ -26,6 +26,8 @@ group :development, :test do
   gem 'spring'
 end
 
+gem 'bootstrap-sass', '~> 3.3.5'
+
 gem 'omniauth-facebook'
 gem 'omniauth-github'
 
