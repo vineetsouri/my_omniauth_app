@@ -5,8 +5,60 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <h1><%= link_to root_path do %>Omni<% end %></h1>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      <ul class="nav navbar-nav navbar-right">
+       <% if current_user %>
+           <li>Signed in as: <%= current_user.name %> - <%= image_tag(@auth['info']['image'], width: '50', heigth: '50', class: 'img-circle') %></li>
+           <li><%= link_to "Sign Out", 'sign_out', method: :delete %></li>
+       <% else %>
+           <li><%= link_to "auth/facebook" do %><%= image_tag('facebook.png', width: '40', heigth: '40', class: 'img-circle') %><% end %></li>
+           <li><%= link_to "auth/github" do %><%= image_tag('github.png', width: '40', heigth: '40', class: 'img-circle') %><% end %></li>
+           <li><%= link_to "auth/twitter" do %><%= image_tag('twitter.png', width: '40', heigth: '40', class: 'img-circle') %><% end %></li>
+       <% end %>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<% flash.each do |key, value| %>
+ <div class="alert alert-info"><%= value %></div>
+<% end %>      
+
+
+<% if current_user %>
+ <div class="text-center">
+   <h1>Welcome, <%= current_user.name %></h1>
+   <h4>Logged In with -> <strong><em><%= @auth['provider'].capitalize %></em></strong></h4>
+   <%= image_tag('logo.png') %>
+ </div>
+<% end %>
 
 <%= yield %>
 
